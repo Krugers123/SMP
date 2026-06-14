@@ -51,6 +51,19 @@ SMP is currently in `v0` design stage.
 
 This repository contains public-safe protocol documents, draft packet models, and neutral examples. It does not contain private scoring systems, hidden control logic, deployment details, or sensitive evaluation data.
 
+## First Working Bridge
+
+SMP now includes a minimal ChatGPT bridge:
+
+```powershell
+python tools/validate_packet.py examples/chatgpt_bridge_packet.json
+python tools/compile_packet.py examples/chatgpt_bridge_packet.json
+```
+
+The bridge validates an SMP packet and compiles it into a ChatGPT-ready semantic frame.
+
+See [docs/CHATGPT_BRIDGE.md](docs/CHATGPT_BRIDGE.md).
+
 ## What SMP Is
 
 - A protocol for structured human intent transmission.
@@ -86,8 +99,14 @@ This repository contains public-safe protocol documents, draft packet models, an
 |-- LICENSE
 |-- schemas/
 |   `-- smp_packet.v0.json
+|-- tools/
+|   |-- validate_packet.py
+|   `-- compile_packet.py
+|-- docs/
+|   `-- CHATGPT_BRIDGE.md
 `-- examples/
     |-- minimal_packet.json
+    |-- chatgpt_bridge_packet.json
     |-- coding_task_packet.json
     |-- creative_direction_packet.json
     `-- high_risk_decision_packet.json

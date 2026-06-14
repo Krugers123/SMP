@@ -122,3 +122,11 @@ Future versions may add:
 - multimodal input mappings,
 - interoperability tests.
 
+## 9. Reference Tools
+
+The public repository includes two minimal reference tools:
+
+- `tools/validate_packet.py` checks SMP v0.1 packet structure.
+- `tools/compile_packet.py` compiles a packet into a ChatGPT-ready semantic frame.
+
+These tools are reference implementations, not the full protocol.
