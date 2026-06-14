@@ -1,0 +1,13 @@
+{
+  "smp_version": "0.1",
+  "intent": {
+    "summary": "Draft a concise project description for SMP.",
+    "success_condition": "The reader understands SMP as a protocol for richer human-AI communication."
+  },
+  "desired_output": {
+    "format": "short markdown text",
+    "audience": "technical and non-technical readers",
+    "detail_level": "brief"
+  }
+}
+

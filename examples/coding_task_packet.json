@@ -1,0 +1,42 @@
+{
+  "smp_version": "0.1",
+  "intent": {
+    "summary": "Implement a small validator for SMP packet files.",
+    "priority": "correctness before convenience",
+    "success_condition": "Invalid packets produce clear validation errors."
+  },
+  "context": {
+    "project_stage": "draft protocol",
+    "repository_type": "open-source"
+  },
+  "constraints": {
+    "language": "Python",
+    "avoid": ["network calls", "provider-specific SDKs"],
+    "compatibility": "local CLI usage"
+  },
+  "tone": {
+    "interaction_style": "direct and engineering-focused"
+  },
+  "risk_watch": {
+    "watch_for": ["overly strict schema assumptions", "unclear error messages"]
+  },
+  "boundaries": {
+    "must_not": ["add hidden policy logic", "claim safety guarantees"]
+  },
+  "trajectory": {
+    "preserve": "simple public protocol tooling"
+  },
+  "desired_output": {
+    "format": "small CLI tool plus tests",
+    "audience": "open-source contributors",
+    "detail_level": "implementation-ready"
+  },
+  "memory_hooks": {
+    "project_formula": "SMP increases semantic bandwidth; human authority remains explicit."
+  },
+  "metadata": {
+    "packet_id": "example-coding-task-v0",
+    "source": "SMP public examples"
+  }
+}
+

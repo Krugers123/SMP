@@ -1,0 +1,34 @@
+{
+  "smp_version": "0.1",
+  "intent": {
+    "summary": "Support preparation for a consequential decision without replacing human judgment.",
+    "success_condition": "The output separates options, assumptions, risks, and questions for human review."
+  },
+  "context": {
+    "domain": "consequential decision support",
+    "human_role": "final decision-maker"
+  },
+  "constraints": {
+    "require_uncertainty": true,
+    "separate_facts_from_recommendations": true
+  },
+  "risk_watch": {
+    "watch_for": ["false confidence", "missing alternatives", "unsupported claims"]
+  },
+  "boundaries": {
+    "must_not": [
+      "make the final decision",
+      "present speculation as fact",
+      "remove the need for qualified human review"
+    ]
+  },
+  "trajectory": {
+    "preserve": "human authority and careful review"
+  },
+  "desired_output": {
+    "format": "decision-support memo",
+    "audience": "human reviewer",
+    "detail_level": "structured and cautious"
+  }
+}
+

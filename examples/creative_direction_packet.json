@@ -1,0 +1,27 @@
+{
+  "smp_version": "0.1",
+  "intent": {
+    "summary": "Create public-facing language that explains SMP clearly.",
+    "success_condition": "The result feels human-centered, open, and precise."
+  },
+  "context": {
+    "topic": "human-AI communication",
+    "project_identity": "open-source protocol"
+  },
+  "tone": {
+    "style": "clear, grounded, optimistic",
+    "avoid": ["hype", "mysticism", "overclaiming"]
+  },
+  "boundaries": {
+    "must_not": ["claim SMP solves alignment", "imply hidden control over models"]
+  },
+  "trajectory": {
+    "preserve": "meaning bandwidth as the central concept"
+  },
+  "desired_output": {
+    "format": "README section",
+    "audience": "builders, researchers, and thoughtful AI users",
+    "detail_level": "medium"
+  }
+}
+

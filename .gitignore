@@ -1,0 +1,17 @@
+# OS and editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local scratch
+.env
+.env.*
+*.local
+
+# Python/cache artifacts for future tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
