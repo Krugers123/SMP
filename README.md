@@ -68,6 +68,8 @@ See [docs/CHATGPT_BRIDGE.md](docs/CHATGPT_BRIDGE.md).
 
 SMP also includes a small local web composer:
 
+![SMP Web Composer](docs/assets/smp_web_composer_asa_style.png)
+
 ```powershell
 .\start_smp_web.ps1
 ```

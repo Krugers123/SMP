@@ -2,6 +2,8 @@
 
 The SMP Web Composer is a small local browser tool for creating SMP packets and compiling them into ChatGPT-ready frames.
 
+![SMP Web Composer](assets/smp_web_composer_asa_style.png)
+
 It runs locally and does not require:
 
 - API keys,
@@ -43,4 +45,3 @@ To use a different port:
 This is a local composer and bridge tool.
 
 It does not connect directly to ChatGPT, enforce model behavior, or perform autonomous actions. It creates a clearer semantic frame for the user to inspect and paste manually.
-
