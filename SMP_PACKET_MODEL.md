@@ -2,6 +2,8 @@
 
 The SMP packet is a structured container for multiple channels of meaning.
 
+It is meant as a compact cognitive frame: a way to carry several layers of human intent without forcing everything through one long prompt.
+
 The `v0` packet model is intentionally simple. It is designed to be readable by humans and portable across tools.
 
 ## Packet Shape
@@ -68,3 +70,4 @@ Protocol version, packet id, creation time, source, and optional compatibility i
 
 SMP should not force every interaction to become heavy or bureaucratic. A minimal packet can be small. A high-risk or high-context interaction can carry more channels.
 
+The protocol should compress meaning, not personality. The goal is to help humans move faster with AI while preserving nuance, boundaries, and direction.
