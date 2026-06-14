@@ -64,6 +64,24 @@ The bridge validates an SMP packet and compiles it into a ChatGPT-ready semantic
 
 See [docs/CHATGPT_BRIDGE.md](docs/CHATGPT_BRIDGE.md).
 
+## Local Web Composer
+
+SMP also includes a small local web composer:
+
+```powershell
+.\start_smp_web.ps1
+```
+
+Then open:
+
+```text
+http://localhost:8787
+```
+
+The composer lets you fill SMP channels in a browser, generate packet JSON, and copy a ChatGPT-ready frame.
+
+See [docs/WEB_COMPOSER.md](docs/WEB_COMPOSER.md).
+
 ## What SMP Is
 
 - A protocol for structured human intent transmission.
@@ -103,7 +121,13 @@ See [docs/CHATGPT_BRIDGE.md](docs/CHATGPT_BRIDGE.md).
 |   |-- validate_packet.py
 |   `-- compile_packet.py
 |-- docs/
-|   `-- CHATGPT_BRIDGE.md
+|   |-- CHATGPT_BRIDGE.md
+|   `-- WEB_COMPOSER.md
+|-- web/
+|   |-- index.html
+|   |-- styles.css
+|   `-- app.js
+|-- start_smp_web.ps1
 `-- examples/
     |-- minimal_packet.json
     |-- chatgpt_bridge_packet.json

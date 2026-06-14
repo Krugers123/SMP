@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SMP Composer</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">SMP v0.1</p>
+        <h1>Semantic Multiplex Composer</h1>
+      </div>
+      <div class="header-actions" aria-label="Composer actions">
+        <button id="loadExampleBtn" class="secondary" type="button" title="Load example packet">Example</button>
+        <button id="clearBtn" class="secondary" type="button" title="Clear all fields">Clear</button>
+        <button id="compileBtn" class="primary" type="button" title="Compile SMP packet">Compile</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="composer" aria-label="SMP packet composer">
+        <div class="section-heading">
+          <h2>Semantic Packet</h2>
+          <p id="statusLine" class="status">Ready</p>
+        </div>
+
+        <div class="field-grid">
+          <label>
+            <span>Intent</span>
+            <textarea id="intent" rows="4" placeholder="What should the AI help with?"></textarea>
+          </label>
+
+          <label>
+            <span>Context</span>
+            <textarea id="context" rows="4" placeholder="What background changes the meaning?"></textarea>
+          </label>
+
+          <label>
+            <span>Constraints</span>
+            <textarea id="constraints" rows="4" placeholder="Format, limits, tools, deadline, language..."></textarea>
+          </label>
+
+          <label>
+            <span>Tone</span>
+            <textarea id="tone" rows="4" placeholder="Direct, calm, technical, warm, strong..."></textarea>
+          </label>
+
+          <label>
+            <span>Risk Watch</span>
+            <textarea id="riskWatch" rows="4" placeholder="What should the AI avoid or slow down around?"></textarea>
+          </label>
+
+          <label>
+            <span>Boundaries</span>
+            <textarea id="boundaries" rows="4" placeholder="What must not happen?"></textarea>
+          </label>
+
+          <label>
+            <span>Trajectory</span>
+            <textarea id="trajectory" rows="4" placeholder="What direction should the interaction preserve?"></textarea>
+          </label>
+
+          <label>
+            <span>Desired Output</span>
+            <textarea id="desiredOutput" rows="4" placeholder="Reply, memo, code, post, table, concise answer..."></textarea>
+          </label>
+        </div>
+      </section>
+
+      <section class="outputs" aria-label="Compiled outputs">
+        <div class="tabs" role="tablist" aria-label="Output type">
+          <button id="compiledTab" class="tab active" type="button" role="tab" aria-selected="true">ChatGPT Frame</button>
+          <button id="jsonTab" class="tab" type="button" role="tab" aria-selected="false">Packet JSON</button>
+        </div>
+
+        <div class="output-toolbar">
+          <button id="copyBtn" class="secondary" type="button" title="Copy current output">Copy</button>
+          <button id="downloadBtn" class="secondary" type="button" title="Download packet JSON">Download JSON</button>
+        </div>
+
+        <textarea id="compiledOutput" class="output active" spellcheck="false" aria-label="Compiled ChatGPT frame"></textarea>
+        <textarea id="jsonOutput" class="output" spellcheck="false" aria-label="SMP packet JSON"></textarea>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+

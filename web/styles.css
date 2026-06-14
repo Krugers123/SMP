@@ -1,0 +1,280 @@
+:root {
+  color-scheme: light;
+  --bg: #f7f8f5;
+  --ink: #171b1d;
+  --muted: #5f686b;
+  --line: #cfd8d2;
+  --panel: #ffffff;
+  --field: #fbfcfa;
+  --teal: #0f766e;
+  --teal-dark: #0b4f4b;
+  --coral: #b94d35;
+  --gold: #a66f00;
+  --focus: #1b8f82;
+  --shadow: 0 14px 36px rgba(24, 35, 36, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+button {
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 14px;
+  cursor: pointer;
+  font-weight: 650;
+  transition: border-color 140ms ease, background 140ms ease, transform 140ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(27, 143, 130, 0.22);
+  outline-offset: 2px;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px clamp(18px, 4vw, 42px);
+  border-bottom: 1px solid var(--line);
+  background: #fbfcfa;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--teal);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  margin: 0;
+  letter-spacing: 0;
+}
+
+h1 {
+  font-size: clamp(1.35rem, 2.4vw, 2.25rem);
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 1rem;
+}
+
+.header-actions,
+.output-toolbar,
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.primary {
+  border-color: var(--teal);
+  background: var(--teal);
+  color: #ffffff;
+}
+
+.primary:hover {
+  background: var(--teal-dark);
+  border-color: var(--teal-dark);
+}
+
+.secondary {
+  background: #ffffff;
+  color: var(--ink);
+}
+
+.secondary:hover {
+  border-color: var(--teal);
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+  gap: 18px;
+  padding: 18px clamp(14px, 3vw, 34px) 28px;
+}
+
+.composer,
+.outputs {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.composer {
+  padding: 18px;
+}
+
+.outputs {
+  display: grid;
+  grid-template-rows: auto auto minmax(520px, 1fr);
+  gap: 12px;
+  padding: 14px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.status {
+  min-width: 120px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  text-align: right;
+}
+
+.status.error {
+  color: var(--coral);
+  font-weight: 700;
+}
+
+.status.ok {
+  color: var(--teal);
+  font-weight: 700;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+label {
+  display: grid;
+  gap: 7px;
+}
+
+label span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--field);
+  color: var(--ink);
+  padding: 11px 12px;
+  line-height: 1.45;
+}
+
+.field-grid textarea {
+  min-height: 108px;
+}
+
+.tabs {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 10px;
+}
+
+.tab {
+  background: transparent;
+  color: var(--muted);
+}
+
+.tab.active {
+  border-color: rgba(15, 118, 110, 0.35);
+  background: rgba(15, 118, 110, 0.1);
+  color: var(--teal-dark);
+}
+
+.output-toolbar {
+  justify-content: flex-end;
+}
+
+.output {
+  display: none;
+  min-height: 520px;
+  height: 100%;
+  resize: none;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  overflow: auto;
+  background: #111718;
+  color: #eef7f3;
+  border-color: #263536;
+  font-family: Consolas, "Cascadia Mono", monospace;
+  font-size: 0.9rem;
+}
+
+.output.active {
+  display: block;
+}
+
+@media (max-width: 980px) {
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .outputs {
+    grid-template-rows: auto auto minmax(420px, 1fr);
+  }
+
+  .output {
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 680px) {
+  .field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header-actions,
+  .output-toolbar,
+  .tabs {
+    width: 100%;
+  }
+
+  .header-actions button,
+  .output-toolbar button,
+  .tabs button {
+    flex: 1 1 120px;
+  }
+}
