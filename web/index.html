@@ -16,7 +16,7 @@
             <h1>Semantic Multiplex Composer</h1>
           </div>
         </div>
-        <p class="subtitle">Local semantic bandwidth bridge for ChatGPT-ready meaning frames.</p>
+        <p class="subtitle">Local semantic bandwidth bridge for AI-client-ready meaning frames.</p>
       </div>
       <div class="header-right">
         <div class="meta-box" aria-label="Project metadata">
@@ -85,6 +85,7 @@
       <section class="outputs" aria-label="Compiled outputs">
         <div class="tabs" role="tablist" aria-label="Output type">
           <button id="compiledTab" class="tab active" type="button" role="tab" aria-selected="true">ChatGPT Frame</button>
+          <button id="grokTab" class="tab" type="button" role="tab" aria-selected="false">Grok Frame</button>
           <button id="jsonTab" class="tab" type="button" role="tab" aria-selected="false">Packet JSON</button>
         </div>
 
@@ -94,6 +95,7 @@
         </div>
 
         <textarea id="compiledOutput" class="output active" spellcheck="false" aria-label="Compiled ChatGPT frame"></textarea>
+        <textarea id="grokOutput" class="output" spellcheck="false" aria-label="Compiled Grok frame"></textarea>
         <textarea id="jsonOutput" class="output" spellcheck="false" aria-label="SMP packet JSON"></textarea>
       </section>
     </main>

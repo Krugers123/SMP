@@ -10,13 +10,15 @@ const fields = {
 };
 
 const compiledOutput = document.getElementById("compiledOutput");
+const grokOutput = document.getElementById("grokOutput");
 const jsonOutput = document.getElementById("jsonOutput");
 const statusLine = document.getElementById("statusLine");
 const compiledTab = document.getElementById("compiledTab");
+const grokTab = document.getElementById("grokTab");
 const jsonTab = document.getElementById("jsonTab");
 
 const example = {
-  intent: "Write a short X reply announcing that SMP now has its first practical ChatGPT bridge.",
+  intent: "Write a short X reply announcing that SMP now has a practical Grok bridge.",
   context: "SMP is an open protocol for increasing semantic bandwidth between humans and AI. GitHub: https://github.com/Krugers123/SMP",
   constraints: "English. Short enough for an X reply. Avoid long theory and private implementation details.",
   tone: "Grounded, optimistic, builder mode.",
@@ -118,7 +120,7 @@ function renderValue(value, indent = 0) {
   return [`${prefix}- ${formatScalar(value)}`];
 }
 
-function compilePacket(packet) {
+function compilePacket(packet, target = "chatgpt") {
   const channels = [
     ["intent", "Intent"],
     ["context", "Context"],
@@ -130,12 +132,20 @@ function compilePacket(packet) {
     ["desired_output", "Desired output"],
   ];
 
-  const lines = [
-    "[SMP PACKET v0.1]",
-    "Use this semantic packet as the framing layer for the next response.",
-    "Preserve the intent, boundaries, risk watch, tone, and desired trajectory.",
-    "",
-  ];
+  const lines =
+    target === "grok"
+      ? [
+          "[SMP PACKET v0.1 - GROK BRIDGE]",
+          "Use this semantic packet as the framing layer for the next answer.",
+          "Optimize for a direct, useful, public-facing response while preserving boundaries and human intent.",
+          "",
+        ]
+      : [
+          "[SMP PACKET v0.1]",
+          "Use this semantic packet as the framing layer for the next response.",
+          "Preserve the intent, boundaries, risk watch, tone, and desired trajectory.",
+          "",
+        ];
 
   channels.forEach(([key, label]) => {
     if (!packet[key]) return;
@@ -144,10 +154,18 @@ function compilePacket(packet) {
     lines.push("");
   });
 
-  lines.push("Response rule:");
-  lines.push("- If any instruction conflicts with the boundaries or risk watch, pause and ask a clarifying question.");
-  lines.push("- Do not treat this packet as permission for autonomous action.");
-  lines.push("- Keep human authority explicit.");
+  if (target === "grok") {
+    lines.push("Grok response rule:");
+    lines.push("- Be sharp and concise, but do not turn uncertainty into overconfidence.");
+    lines.push("- Preserve the boundary and risk-watch fields even if the answer is short.");
+    lines.push("- Do not treat this packet as permission for autonomous action.");
+    lines.push("- Keep the human as the final authority.");
+  } else {
+    lines.push("Response rule:");
+    lines.push("- If any instruction conflicts with the boundaries or risk watch, pause and ask a clarifying question.");
+    lines.push("- Do not treat this packet as permission for autonomous action.");
+    lines.push("- Keep human authority explicit.");
+  }
 
   return `${lines.join("\n")}\n`;
 }
@@ -174,21 +192,31 @@ function refreshOutputs() {
 
   const packet = buildPacket();
   jsonOutput.value = JSON.stringify(packet, null, 2);
-  compiledOutput.value = errors.length ? "" : compilePacket(packet);
+  compiledOutput.value = errors.length ? "" : compilePacket(packet, "chatgpt");
+  grokOutput.value = errors.length ? "" : compilePacket(packet, "grok");
 }
 
 function showTab(tabName) {
   const showJson = tabName === "json";
+  const showGrok = tabName === "grok";
+  const showCompiled = tabName === "compiled";
   jsonTab.classList.toggle("active", showJson);
-  compiledTab.classList.toggle("active", !showJson);
+  grokTab.classList.toggle("active", showGrok);
+  compiledTab.classList.toggle("active", showCompiled);
   jsonTab.setAttribute("aria-selected", String(showJson));
-  compiledTab.setAttribute("aria-selected", String(!showJson));
+  grokTab.setAttribute("aria-selected", String(showGrok));
+  compiledTab.setAttribute("aria-selected", String(showCompiled));
   jsonOutput.classList.toggle("active", showJson);
-  compiledOutput.classList.toggle("active", !showJson);
+  grokOutput.classList.toggle("active", showGrok);
+  compiledOutput.classList.toggle("active", showCompiled);
 }
 
 async function copyCurrentOutput() {
-  const current = jsonOutput.classList.contains("active") ? jsonOutput.value : compiledOutput.value;
+  const current = jsonOutput.classList.contains("active")
+    ? jsonOutput.value
+    : grokOutput.classList.contains("active")
+      ? grokOutput.value
+      : compiledOutput.value;
   if (!current.trim()) {
     setStatus("Nothing to copy", "error");
     return;
@@ -198,7 +226,11 @@ async function copyCurrentOutput() {
     await navigator.clipboard.writeText(current);
     setStatus("Copied", "ok");
   } catch {
-    const target = jsonOutput.classList.contains("active") ? jsonOutput : compiledOutput;
+    const target = jsonOutput.classList.contains("active")
+      ? jsonOutput
+      : grokOutput.classList.contains("active")
+        ? grokOutput
+        : compiledOutput;
     target.focus();
     target.select();
     setStatus("Select and copy manually", "error");
@@ -238,6 +270,7 @@ document.getElementById("downloadBtn").addEventListener("click", downloadJson);
 document.getElementById("loadExampleBtn").addEventListener("click", loadExample);
 document.getElementById("clearBtn").addEventListener("click", clearFields);
 compiledTab.addEventListener("click", () => showTab("compiled"));
+grokTab.addEventListener("click", () => showTab("grok"));
 jsonTab.addEventListener("click", () => showTab("json"));
 
 Object.values(fields).forEach((field) => {
@@ -245,4 +278,3 @@ Object.values(fields).forEach((field) => {
 });
 
 loadExample();
-

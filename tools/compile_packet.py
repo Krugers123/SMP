@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compile an SMP packet into a ChatGPT-ready instruction block."""
+"""Compile an SMP packet into an AI-client-ready instruction block."""
 
 from __future__ import annotations
 
@@ -94,9 +94,44 @@ def compile_for_chatgpt(packet: dict[str, Any]) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
+def compile_for_grok(packet: dict[str, Any]) -> str:
+    lines = [
+        "[SMP PACKET v0.1 - GROK BRIDGE]",
+        "Use this semantic packet as the framing layer for the next answer.",
+        "Optimize for a direct, useful, public-facing response while preserving boundaries and human intent.",
+        "",
+    ]
+
+    for key, label in CHANNEL_LABELS:
+        value = packet.get(key)
+        if not value:
+            continue
+        lines.append(f"{label}:")
+        lines.extend(render_value(value))
+        lines.append("")
+
+    lines.extend(
+        [
+            "Grok response rule:",
+            "- Be sharp and concise, but do not turn uncertainty into overconfidence.",
+            "- Preserve the boundary and risk-watch fields even if the answer is short.",
+            "- Do not treat this packet as permission for autonomous action.",
+            "- Keep the human as the final authority.",
+        ]
+    )
+
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Compile an SMP packet into a ChatGPT-ready text block.")
+    parser = argparse.ArgumentParser(description="Compile an SMP packet into an AI-client-ready text block.")
     parser.add_argument("packet", type=Path, help="Path to an SMP packet JSON file.")
+    parser.add_argument(
+        "--target",
+        choices=("chatgpt", "grok"),
+        default="chatgpt",
+        help="Output profile to compile for.",
+    )
     parser.add_argument("-o", "--output", type=Path, help="Optional output text file.")
     args = parser.parse_args(argv)
 
@@ -113,7 +148,10 @@ def main(argv: list[str] | None = None) -> int:
             print(f"- {error}", file=sys.stderr)
         return 1
 
-    compiled = compile_for_chatgpt(packet)
+    if args.target == "grok":
+        compiled = compile_for_grok(packet)
+    else:
+        compiled = compile_for_chatgpt(packet)
     if args.output:
         args.output.write_text(compiled, encoding="utf-8")
         print(f"WROTE: {args.output}")
@@ -125,4 +163,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

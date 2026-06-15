@@ -2,7 +2,7 @@
 
 The SMP ChatGPT Bridge is the first practical use of SMP.
 
-It converts an SMP semantic packet into a compact instruction block that can be pasted into ChatGPT or any compatible AI assistant.
+It converts an SMP semantic packet into a compact instruction block that can be pasted into ChatGPT or a compatible AI assistant.
 
 This is intentionally non-invasive:
 
@@ -87,4 +87,3 @@ as one compact semantic frame.
 This bridge does not make ChatGPT enforce SMP fields.
 
 It only gives the model a clearer, denser, more inspectable framing layer. Human review remains necessary, especially in consequential contexts.
-

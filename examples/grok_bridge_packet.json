@@ -1,0 +1,49 @@
+{
+  "smp_version": "0.1",
+  "intent": {
+    "summary": "Turn a rough project update into a concise Grok/X-ready reply about SMP.",
+    "priority": "clarity, speed, and public readability",
+    "success_condition": "The response explains the practical value of SMP without sounding like hype."
+  },
+  "context": {
+    "project": "SMP - Semantic Multiplex Protocol",
+    "current_stage": "local web composer plus bridge tools",
+    "platform": "Grok / X",
+    "github": "https://github.com/Krugers123/SMP"
+  },
+  "constraints": {
+    "length": "short enough for an X reply",
+    "language": "English",
+    "avoid": ["long theory", "overclaims", "private implementation details"]
+  },
+  "tone": {
+    "style": "direct, grounded, builder mode",
+    "energy": "clear and useful"
+  },
+  "risk_watch": {
+    "watch_for": ["sounding like a prompt wrapper", "claiming safety guarantees", "too much hype"]
+  },
+  "boundaries": {
+    "must_not": [
+      "claim SMP solves alignment",
+      "imply model weight modification",
+      "imply autonomous control"
+    ]
+  },
+  "trajectory": {
+    "preserve": "SMP as a non-invasive semantic bandwidth layer between humans and AI"
+  },
+  "desired_output": {
+    "format": "short Grok/X-ready reply with GitHub link",
+    "audience": "AI builders and X readers",
+    "detail_level": "brief"
+  },
+  "memory_hooks": {
+    "core_line": "The next bottleneck may be semantic bandwidth between humans and AI."
+  },
+  "metadata": {
+    "packet_id": "example-grok-bridge-v0",
+    "source": "SMP public examples"
+  }
+}
+

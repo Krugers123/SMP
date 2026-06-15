@@ -20,6 +20,16 @@ It can be compiled with:
 python tools/compile_packet.py examples/chatgpt_bridge_packet.json
 ```
 
+## Grok Bridge Packet
+
+`examples/grok_bridge_packet.json` shows how SMP can frame a Grok/X-facing interaction.
+
+It can be compiled with:
+
+```powershell
+python tools/compile_packet.py examples/grok_bridge_packet.json --target grok
+```
+
 ## Creative Direction Packet
 
 `examples/creative_direction_packet.json` shows how SMP can carry style, emotional tone, audience, and trajectory without over-constraining the output.

@@ -58,11 +58,13 @@ SMP now includes a minimal ChatGPT bridge:
 ```powershell
 python tools/validate_packet.py examples/chatgpt_bridge_packet.json
 python tools/compile_packet.py examples/chatgpt_bridge_packet.json
+python tools/compile_packet.py examples/grok_bridge_packet.json --target grok
 ```
 
-The bridge validates an SMP packet and compiles it into a ChatGPT-ready semantic frame.
+The bridge validates an SMP packet and compiles it into an AI-client-ready semantic frame.
 
 See [docs/CHATGPT_BRIDGE.md](docs/CHATGPT_BRIDGE.md).
+See [docs/GROK_BRIDGE.md](docs/GROK_BRIDGE.md).
 
 ## Local Web Composer
 
@@ -80,7 +82,7 @@ Then open:
 http://localhost:8787
 ```
 
-The composer lets you fill SMP channels in a browser, generate packet JSON, and copy a ChatGPT-ready frame.
+The composer lets you fill SMP channels in a browser, generate packet JSON, and copy ChatGPT-ready or Grok-ready frames.
 
 See [docs/WEB_COMPOSER.md](docs/WEB_COMPOSER.md).
 

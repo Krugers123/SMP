@@ -127,6 +127,6 @@ Future versions may add:
 The public repository includes two minimal reference tools:
 
 - `tools/validate_packet.py` checks SMP v0.1 packet structure.
-- `tools/compile_packet.py` compiles a packet into a ChatGPT-ready semantic frame.
+- `tools/compile_packet.py` compiles a packet into client-ready semantic frames, including ChatGPT and Grok profiles.
 
 These tools are reference implementations, not the full protocol.

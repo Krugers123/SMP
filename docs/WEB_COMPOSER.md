@@ -1,6 +1,6 @@
 # SMP Web Composer
 
-The SMP Web Composer is a small local browser tool for creating SMP packets and compiling them into ChatGPT-ready frames.
+The SMP Web Composer is a small local browser tool for creating SMP packets and compiling them into AI-client-ready frames.
 
 ![SMP Web Composer](assets/smp_web_composer_asa_style.png)
 
@@ -37,8 +37,8 @@ To use a different port:
 
 1. Fill the SMP channels.
 2. Click `Compile`.
-3. Copy the `ChatGPT Frame`.
-4. Paste it into ChatGPT before the actual task, or use it as the task itself.
+3. Copy the `ChatGPT Frame` or `Grok Frame`.
+4. Paste it into the selected AI client before the actual task, or use it as the task itself.
 
 ## Current Boundary
 
