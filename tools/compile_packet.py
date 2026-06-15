@@ -66,13 +66,29 @@ def format_scalar(value: Any) -> str:
     return str(value)
 
 
+def packet_version(packet: dict[str, Any]) -> str:
+    return str(packet.get("smp_version", "0.1"))
+
+
+def packet_profile(packet: dict[str, Any]) -> str | None:
+    profile = packet.get("profile")
+    return str(profile) if profile else None
+
+
+def profile_line(packet: dict[str, Any]) -> list[str]:
+    profile = packet_profile(packet)
+    return [f"Profile: {profile}", ""] if profile else []
+
+
 def compile_for_chatgpt(packet: dict[str, Any]) -> str:
+    version = packet_version(packet)
     lines = [
-        "[SMP PACKET v0.1]",
+        f"[SMP PACKET v{version}]",
         "Use this semantic packet as the framing layer for the next response.",
         "Preserve the intent, boundaries, risk watch, tone, and desired trajectory.",
         "",
     ]
+    lines.extend(profile_line(packet))
 
     for key, label in CHANNEL_LABELS:
         value = packet.get(key)
@@ -94,13 +110,15 @@ def compile_for_chatgpt(packet: dict[str, Any]) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def compile_for_grok(packet: dict[str, Any]) -> str:
+def compile_for_grok(packet: dict[str, Any], preset: str = "default") -> str:
+    version = packet_version(packet)
     lines = [
-        "[SMP PACKET v0.1 - GROK BRIDGE]",
+        f"[SMP PACKET v{version} - GROK BRIDGE]",
         "Use this semantic packet as the framing layer for the next answer.",
         "Optimize for a direct, useful, public-facing response while preserving boundaries and human intent.",
         "",
     ]
+    lines.extend(profile_line(packet))
 
     for key, label in CHANNEL_LABELS:
         value = packet.get(key)
@@ -110,15 +128,15 @@ def compile_for_grok(packet: dict[str, Any]) -> str:
         lines.extend(render_value(value))
         lines.append("")
 
-    lines.extend(
-        [
-            "Grok response rule:",
-            "- Be sharp and concise, but do not turn uncertainty into overconfidence.",
-            "- Preserve the boundary and risk-watch fields even if the answer is short.",
-            "- Do not treat this packet as permission for autonomous action.",
-            "- Keep the human as the final authority.",
-        ]
-    )
+    lines.append("Grok response rule:")
+    if preset == "truth_seek":
+        lines.append("- Be direct, concise, truth-seeking, and useful.")
+        lines.append("- Light wit is allowed only when it does not distort meaning.")
+    else:
+        lines.append("- Be sharp and concise, but do not turn uncertainty into overconfidence.")
+    lines.append("- Preserve the boundary and risk-watch fields even if the answer is short.")
+    lines.append("- Do not treat this packet as permission for autonomous action.")
+    lines.append("- Keep the human as the final authority.")
 
     return "\n".join(lines).rstrip() + "\n"
 
@@ -131,6 +149,12 @@ def main(argv: list[str] | None = None) -> int:
         choices=("chatgpt", "grok"),
         default="chatgpt",
         help="Output profile to compile for.",
+    )
+    parser.add_argument(
+        "--grok-preset",
+        choices=("default", "truth_seek"),
+        default="default",
+        help="Optional Grok-specific response preset.",
     )
     parser.add_argument("-o", "--output", type=Path, help="Optional output text file.")
     args = parser.parse_args(argv)
@@ -149,7 +173,7 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     if args.target == "grok":
-        compiled = compile_for_grok(packet)
+        compiled = compile_for_grok(packet, preset=args.grok_preset)
     else:
         compiled = compile_for_chatgpt(packet)
     if args.output:

@@ -1,5 +1,6 @@
 {
-  "smp_version": "0.1",
+  "smp_version": "0.2",
+  "profile": "standard",
   "intent": {
     "summary": "Turn a rough project update into a concise Grok/X-ready reply about SMP.",
     "priority": "clarity, speed, and public readability",
@@ -46,4 +47,3 @@
     "source": "SMP public examples"
   }
 }
-

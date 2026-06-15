@@ -1,0 +1,32 @@
+{
+  "smp_version": "0.2",
+  "profile": "standard",
+  "intent": {
+    "summary": "Create a concise public update explaining the value of SMP profiles.",
+    "priority": "clarity before detail",
+    "success_condition": "The reader understands that profiles help choose the right amount of semantic structure."
+  },
+  "context": {
+    "project": "SMP - Semantic Multiplex Protocol",
+    "stage": "v0.2 draft"
+  },
+  "constraints": {
+    "items": ["English", "short public post", "avoid technical overexplaining"]
+  },
+  "tone": {
+    "style": "grounded, clear, builder mode"
+  },
+  "trajectory": {
+    "preserve": "SMP as portable human intent for AI clients"
+  },
+  "desired_output": {
+    "format": "short public update",
+    "audience": "AI builders and curious users",
+    "detail_level": "brief"
+  },
+  "metadata": {
+    "packet_id": "example-standard-profile-v0-2",
+    "source": "SMP public examples"
+  }
+}
+

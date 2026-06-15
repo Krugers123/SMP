@@ -1,0 +1,39 @@
+{
+  "smp_version": "0.2",
+  "profile": "high_risk",
+  "intent": {
+    "summary": "Prepare a careful public explanation of an experimental AI protocol.",
+    "priority": "accuracy and boundaries",
+    "success_condition": "The output is useful without implying guarantees or autonomous control."
+  },
+  "context": {
+    "project": "SMP - Semantic Multiplex Protocol",
+    "stage": "v0.2 draft",
+    "domain": "human-AI interaction"
+  },
+  "constraints": {
+    "items": ["separate claims from direction", "avoid private implementation detail", "keep human authority explicit"]
+  },
+  "tone": {
+    "style": "precise, calm, non-hyped"
+  },
+  "risk_watch": {
+    "watch_for": ["false safety claims", "overstating protocol capability", "confusing semantic framing with enforcement"]
+  },
+  "boundaries": {
+    "must_not": ["claim SMP guarantees alignment", "imply model weight modification", "imply autonomous control"]
+  },
+  "trajectory": {
+    "preserve": "SMP as a non-invasive semantic bandwidth layer"
+  },
+  "desired_output": {
+    "format": "cautious public explanation",
+    "audience": "AI users and builders",
+    "detail_level": "medium"
+  },
+  "metadata": {
+    "packet_id": "example-high-risk-profile-v0-2",
+    "source": "SMP public examples"
+  }
+}
+

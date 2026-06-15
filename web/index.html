@@ -20,7 +20,7 @@
       </div>
       <div class="header-right">
         <div class="meta-box" aria-label="Project metadata">
-          <div class="meta-version">SMP v0.1</div>
+          <div class="meta-version">SMP v0.2</div>
           <div class="meta-author">Symbioza2025 | ASA</div>
           <div class="meta-research">Mieczyslaw Kusowski</div>
         </div>
@@ -37,6 +37,18 @@
         <div class="section-heading">
           <h2>Semantic Packet</h2>
           <p id="statusLine" class="status">Ready</p>
+        </div>
+
+        <div class="profile-panel" aria-label="Packet profile controls">
+          <div>
+            <span class="control-label">Packet Profile</span>
+            <div class="segmented" role="group" aria-label="Packet profile">
+              <button class="segment" type="button" data-profile="minimal">Minimal</button>
+              <button class="segment active" type="button" data-profile="standard">Standard</button>
+              <button class="segment" type="button" data-profile="high_risk">High Risk</button>
+            </div>
+          </div>
+          <p id="profileHint" class="profile-hint">Standard: context, constraints, tone, trajectory and output shape.</p>
         </div>
 
         <div class="field-grid">
@@ -90,6 +102,13 @@
         </div>
 
         <div class="output-toolbar">
+          <div class="grok-preset" aria-label="Grok preset controls">
+            <span class="control-label">Grok Preset</span>
+            <div class="segmented small" role="group" aria-label="Grok preset">
+              <button class="segment active" type="button" data-grok-preset="default">Default</button>
+              <button class="segment" type="button" data-grok-preset="truth_seek">Truth Seek</button>
+            </div>
+          </div>
           <button id="copyBtn" class="secondary" type="button" title="Copy current output">Copy</button>
           <button id="downloadBtn" class="secondary" type="button" title="Download packet JSON">Download JSON</button>
         </div>

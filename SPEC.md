@@ -1,8 +1,10 @@
-# SMP v0.1 Draft Specification
+# SMP v0.2 Draft Specification
 
 Status: Draft
 
 SMP - Semantic Multiplex Protocol is a protocol for carrying richer human intent to AI systems through structured semantic packets.
+
+Tagline: Meaning Bandwidth for AI.
 
 ## 1. Purpose
 
@@ -29,13 +31,28 @@ The packet is not a command by itself. It is an inspectable frame of meaning tha
 
 ## 3. Required Fields
 
-For SMP v0.1, the minimal required fields are:
+For SMP v0.2, the minimal required fields are:
 
 - `smp_version`
+- `profile`
 - `intent`
 - `desired_output`
 
+For backwards compatibility, SMP v0.1 packets may omit `profile`.
+
 All other fields are optional but recommended when the interaction carries high context, ambiguity, risk, or a strong desired trajectory.
+
+## 3.1 Packet Profiles
+
+SMP v0.2 defines three initial profiles:
+
+- `minimal`
+- `standard`
+- `high_risk`
+
+Profiles indicate the expected level of semantic structure. They do not guarantee safety or correctness.
+
+See `docs/PACKET_PROFILES.md`.
 
 ## 4. Channel Semantics
 
@@ -111,12 +128,12 @@ Any implementation that uses SMP in high-impact contexts must rely on additional
 
 ## 8. Compatibility
 
-SMP v0.1 is intentionally small and human-readable.
+SMP v0.2 remains intentionally small and human-readable.
 
 Future versions may add:
 
 - stricter field definitions,
-- packet profiles,
+- additional packet profiles,
 - validators,
 - UI bindings,
 - multimodal input mappings,

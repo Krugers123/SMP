@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Krugers123/SMP/schemas/smp_packet.v0.2.json",
+  "title": "SMP Packet v0.2",
+  "type": "object",
+  "required": ["smp_version", "profile", "intent", "desired_output"],
+  "additionalProperties": false,
+  "properties": {
+    "smp_version": {
+      "type": "string",
+      "const": "0.2"
+    },
+    "profile": {
+      "type": "string",
+      "enum": ["minimal", "standard", "high_risk"]
+    },
+    "intent": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "summary": { "type": "string" },
+        "priority": { "type": "string" },
+        "success_condition": { "type": "string" }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "tone": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "risk_watch": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "boundaries": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "trajectory": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "desired_output": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "format": { "type": "string" },
+        "audience": { "type": "string" },
+        "detail_level": { "type": "string" }
+      }
+    },
+    "memory_hooks": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "packet_id": { "type": "string" },
+        "created_at": { "type": "string" },
+        "source": { "type": "string" }
+      }
+    }
+  }
+}
+

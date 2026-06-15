@@ -30,6 +30,14 @@ It can be compiled with:
 python tools/compile_packet.py examples/grok_bridge_packet.json --target grok
 ```
 
+## Standard Profile Packet
+
+`examples/standard_profile_packet.json` shows the `standard` v0.2 profile for ordinary writing, coding, planning, or analysis tasks.
+
+## High-Risk Profile Packet
+
+`examples/high_risk_profile_packet.json` shows the `high_risk` v0.2 profile for tasks that need explicit risk watch, boundaries, and human authority.
+
 ## Creative Direction Packet
 
 `examples/creative_direction_packet.json` shows how SMP can carry style, emotional tone, audience, and trajectory without over-constraining the output.

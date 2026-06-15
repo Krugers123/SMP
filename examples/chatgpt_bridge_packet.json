@@ -1,5 +1,6 @@
 {
-  "smp_version": "0.1",
+  "smp_version": "0.2",
+  "profile": "standard",
   "intent": {
     "summary": "Turn a rough human idea into a concise X reply about SMP's next practical step.",
     "priority": "clarity and momentum",
@@ -7,7 +8,7 @@
   },
   "context": {
     "project": "SMP - Semantic Multiplex Protocol",
-    "current_stage": "public v0.1 draft",
+    "current_stage": "public v0.2 draft",
     "platform": "X",
     "github": "https://github.com/Krugers123/SMP"
   },
@@ -46,4 +47,3 @@
     "source": "SMP public examples"
   }
 }
-

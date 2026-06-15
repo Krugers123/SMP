@@ -16,6 +16,7 @@ from typing import Any
 
 
 REQUIRED_FIELDS = ("smp_version", "intent", "desired_output")
+V02_REQUIRED_FIELDS = ("profile",)
 OPTIONAL_OBJECT_FIELDS = (
     "context",
     "constraints",
@@ -26,8 +27,9 @@ OPTIONAL_OBJECT_FIELDS = (
     "memory_hooks",
     "metadata",
 )
-ALLOWED_FIELDS = set(REQUIRED_FIELDS) | set(OPTIONAL_OBJECT_FIELDS)
-SUPPORTED_VERSION = "0.1"
+ALLOWED_FIELDS = set(REQUIRED_FIELDS) | set(V02_REQUIRED_FIELDS) | set(OPTIONAL_OBJECT_FIELDS)
+SUPPORTED_VERSIONS = ("0.1", "0.2")
+SUPPORTED_PROFILES = ("minimal", "standard", "high_risk")
 
 
 def load_json(path: Path) -> Any:
@@ -50,8 +52,17 @@ def validate_packet(packet: Any) -> list[str]:
             errors.append(f"missing required field: {field}")
 
     version = packet.get("smp_version")
-    if version != SUPPORTED_VERSION:
-        errors.append(f"smp_version must be {SUPPORTED_VERSION!r}")
+    if version not in SUPPORTED_VERSIONS:
+        errors.append(f"smp_version must be one of: {', '.join(SUPPORTED_VERSIONS)}")
+
+    if version == "0.2":
+        for field in V02_REQUIRED_FIELDS:
+            if field not in packet:
+                errors.append(f"missing required v0.2 field: {field}")
+
+    profile = packet.get("profile")
+    if profile is not None and profile not in SUPPORTED_PROFILES:
+        errors.append(f"profile must be one of: {', '.join(SUPPORTED_PROFILES)}")
 
     extra_fields = sorted(set(packet) - ALLOWED_FIELDS)
     for field in extra_fields:
@@ -60,6 +71,9 @@ def validate_packet(packet: Any) -> list[str]:
     for field in ("intent", "desired_output", *OPTIONAL_OBJECT_FIELDS):
         if field in packet and not isinstance(packet[field], dict):
             errors.append(f"{field} must be an object")
+
+    if "profile" in packet and not isinstance(packet["profile"], str):
+        errors.append("profile must be a string")
 
     intent = packet.get("intent")
     if isinstance(intent, dict) and not intent.get("summary"):
@@ -96,4 +110,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

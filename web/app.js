@@ -16,9 +16,15 @@ const statusLine = document.getElementById("statusLine");
 const compiledTab = document.getElementById("compiledTab");
 const grokTab = document.getElementById("grokTab");
 const jsonTab = document.getElementById("jsonTab");
+const profileHint = document.getElementById("profileHint");
+const profileButtons = Array.from(document.querySelectorAll("[data-profile]"));
+const grokPresetButtons = Array.from(document.querySelectorAll("[data-grok-preset]"));
+
+let activeProfile = "standard";
+let activeGrokPreset = "default";
 
 const example = {
-  intent: "Write a short X reply announcing that SMP now has a practical Grok bridge.",
+  intent: "Write a short X reply announcing that SMP now has v0.2 packet profiles and a practical Grok bridge.",
   context: "SMP is an open protocol for increasing semantic bandwidth between humans and AI. GitHub: https://github.com/Krugers123/SMP",
   constraints: "English. Short enough for an X reply. Avoid long theory and private implementation details.",
   tone: "Grounded, optimistic, builder mode.",
@@ -26,6 +32,33 @@ const example = {
   boundaries: "Do not imply autonomous control. Do not imply model weight modification.",
   trajectory: "Preserve SMP as a non-invasive semantic bandwidth layer between humans and AI.",
   desiredOutput: "Short X reply with GitHub link.",
+};
+
+const profileConfig = {
+  minimal: {
+    label: "Minimal",
+    hint: "Minimal: intent and output shape for simple low-risk tasks.",
+    recommended: ["intent", "desiredOutput"],
+  },
+  standard: {
+    label: "Standard",
+    hint: "Standard: context, constraints, tone, trajectory and output shape.",
+    recommended: ["intent", "context", "constraints", "tone", "trajectory", "desiredOutput"],
+  },
+  high_risk: {
+    label: "High Risk",
+    hint: "High Risk: adds risk watch, boundaries and explicit human authority.",
+    recommended: [
+      "intent",
+      "context",
+      "constraints",
+      "tone",
+      "riskWatch",
+      "boundaries",
+      "trajectory",
+      "desiredOutput",
+    ],
+  },
 };
 
 function compact(value) {
@@ -44,7 +77,8 @@ function buildPacket() {
   const desiredOutput = compact(fields.desiredOutput.value);
 
   const packet = {
-    smp_version: "0.1",
+    smp_version: "0.2",
+    profile: activeProfile,
     intent: {
       summary: intent,
       success_condition: "The response follows the SMP packet without losing intent, boundaries, tone, or trajectory.",
@@ -82,6 +116,7 @@ function buildPacket() {
   packet.metadata = {
     packet_id: `smp-web-${new Date().toISOString()}`,
     source: "SMP Composer web",
+    grok_preset: activeGrokPreset,
   };
 
   return packet;
@@ -135,17 +170,20 @@ function compilePacket(packet, target = "chatgpt") {
   const lines =
     target === "grok"
       ? [
-          "[SMP PACKET v0.1 - GROK BRIDGE]",
+          `[SMP PACKET v${packet.smp_version} - GROK BRIDGE]`,
           "Use this semantic packet as the framing layer for the next answer.",
           "Optimize for a direct, useful, public-facing response while preserving boundaries and human intent.",
           "",
         ]
       : [
-          "[SMP PACKET v0.1]",
+          `[SMP PACKET v${packet.smp_version}]`,
           "Use this semantic packet as the framing layer for the next response.",
           "Preserve the intent, boundaries, risk watch, tone, and desired trajectory.",
           "",
         ];
+
+  lines.push(`Profile: ${packet.profile}`);
+  lines.push("");
 
   channels.forEach(([key, label]) => {
     if (!packet[key]) return;
@@ -156,7 +194,12 @@ function compilePacket(packet, target = "chatgpt") {
 
   if (target === "grok") {
     lines.push("Grok response rule:");
-    lines.push("- Be sharp and concise, but do not turn uncertainty into overconfidence.");
+    if (activeGrokPreset === "truth_seek") {
+      lines.push("- Be direct, concise, truth-seeking, and useful.");
+      lines.push("- Light wit is allowed only when it does not distort meaning.");
+    } else {
+      lines.push("- Be sharp and concise, but do not turn uncertainty into overconfidence.");
+    }
     lines.push("- Preserve the boundary and risk-watch fields even if the answer is short.");
     lines.push("- Do not treat this packet as permission for autonomous action.");
     lines.push("- Keep the human as the final authority.");
@@ -177,6 +220,16 @@ function validateInputs() {
   return errors;
 }
 
+function estimateCoverage() {
+  const recommended = profileConfig[activeProfile].recommended;
+  const filled = recommended.filter((key) => fields[key].value.trim()).length;
+  const ratio = filled / recommended.length;
+
+  if (ratio >= 0.85) return "High";
+  if (ratio >= 0.5) return "Medium";
+  return "Low";
+}
+
 function setStatus(message, type = "") {
   statusLine.textContent = message;
   statusLine.className = `status ${type}`.trim();
@@ -187,7 +240,7 @@ function refreshOutputs() {
   if (errors.length) {
     setStatus(errors.join(" "), "error");
   } else {
-    setStatus("Packet ready", "ok");
+    setStatus(`Packet ready · ${estimateCoverage()} coverage`, "ok");
   }
 
   const packet = buildPacket();
@@ -257,6 +310,27 @@ function loadExample() {
   refreshOutputs();
 }
 
+function setProfile(profile) {
+  activeProfile = profile;
+  profileButtons.forEach((button) => {
+    const isActive = button.dataset.profile === profile;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+  profileHint.textContent = profileConfig[profile].hint;
+  refreshOutputs();
+}
+
+function setGrokPreset(preset) {
+  activeGrokPreset = preset;
+  grokPresetButtons.forEach((button) => {
+    const isActive = button.dataset.grokPreset === preset;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+  refreshOutputs();
+}
+
 function clearFields() {
   Object.values(fields).forEach((field) => {
     field.value = "";
@@ -273,8 +347,18 @@ compiledTab.addEventListener("click", () => showTab("compiled"));
 grokTab.addEventListener("click", () => showTab("grok"));
 jsonTab.addEventListener("click", () => showTab("json"));
 
+profileButtons.forEach((button) => {
+  button.addEventListener("click", () => setProfile(button.dataset.profile));
+});
+
+grokPresetButtons.forEach((button) => {
+  button.addEventListener("click", () => setGrokPreset(button.dataset.grokPreset));
+});
+
 Object.values(fields).forEach((field) => {
   field.addEventListener("input", refreshOutputs);
 });
 
+setProfile("standard");
+setGrokPreset("default");
 loadExample();

@@ -35,10 +35,29 @@ To use a different port:
 
 ## Use
 
-1. Fill the SMP channels.
-2. Click `Compile`.
-3. Copy the `ChatGPT Frame` or `Grok Frame`.
-4. Paste it into the selected AI client before the actual task, or use it as the task itself.
+1. Choose a packet profile: `Minimal`, `Standard`, or `High Risk`.
+2. Fill the SMP channels.
+3. Choose a Grok preset if you plan to use the `Grok Frame`.
+4. Click `Compile`.
+5. Copy the `ChatGPT Frame` or `Grok Frame`.
+6. Paste it into the selected AI client before the actual task, or use it as the task itself.
+
+## Packet Profiles
+
+- `Minimal` is for simple low-risk tasks.
+- `Standard` is for ordinary writing, coding, planning, and analysis.
+- `High Risk` is for tasks where risk, boundaries, uncertainty, or public impact matter.
+
+The composer shows a simple semantic coverage estimate: `Low`, `Medium`, or `High`.
+
+This estimate is only a practical completeness signal. It is not a scientific score or safety guarantee.
+
+## Grok Presets
+
+The `Grok Preset` control changes the Grok-specific response rule:
+
+- `Default` favors concise, sharp, useful responses without overconfidence.
+- `Truth Seek` favors direct, truth-seeking, concise responses with light wit allowed only when it does not distort meaning.
 
 ## Current Boundary
 

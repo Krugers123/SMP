@@ -51,9 +51,11 @@ python tools/compile_packet.py examples/chatgpt_bridge_packet.json
 The output is a structured text block:
 
 ```text
-[SMP PACKET v0.1]
+[SMP PACKET v0.2]
 Use this semantic packet as the framing layer for the next response.
 Preserve the intent, boundaries, risk watch, tone, and desired trajectory.
+
+Profile: standard
 
 Intent:
 - summary: ...

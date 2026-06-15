@@ -16,6 +16,12 @@ python tools/validate_packet.py examples/grok_bridge_packet.json
 python tools/compile_packet.py examples/grok_bridge_packet.json --target grok
 ```
 
+Optional truth-seeking preset:
+
+```powershell
+python tools/compile_packet.py examples/grok_bridge_packet.json --target grok --grok-preset truth_seek
+```
+
 The output begins with:
 
 ```text
@@ -29,5 +35,4 @@ Paste the compiled frame into Grok before the actual request, or use it as the f
 
 This bridge does not connect directly to Grok, enforce model behavior, or automate posting on X.
 
-It only gives Grok a clearer semantic frame: intent, context, constraints, tone, risks, boundaries, trajectory, and desired output.
-
+It only gives Grok a clearer semantic frame: intent, context, constraints, tone, risks, boundaries, trajectory, profile, and desired output.
